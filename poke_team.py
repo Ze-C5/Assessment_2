@@ -1,7 +1,8 @@
+
 from queue_adt import CircularQueue
 from stack_adt import ArrayStack
 from pokemon import Charmander, Bulbasaur,Squirtle
-
+from sort import selectionSort
 
 
 
@@ -28,12 +29,17 @@ class PokeTeam:
             elif (int(holder[0])+int(holder[2])+int(holder[4]) < 1):
                 print('PokeTeams must have at least one pokemon')
             else:
-                self.assign_team(int(holder[0]),int(holder[2]),int(holder[4]))
-                break
+                if self.battlemode == 2:
+                    self.assign_team(int(holder[0]),int(holder[2]),int(holder[4]))
+                    self.team = selectionSort(self.team,criterion)
+                    break
+                else:
+                    self.assign_team(int(holder[0]),int(holder[2]),int(holder[4]))
+                    break
 
 
     def assign_team(self,charm: int, bulb:int, squir: int) -> None:
-        if self.battlemode == 0:
+        if self.battlemode == 0 or self.battlemode == 2:
             self.team = ArrayStack(6)
             for i in range(squir):
                 self.team.push(Squirtle())
@@ -56,27 +62,21 @@ class PokeTeam:
             for i in range(squir):
                 self.team.append(Squirtle())
                 #print('squir')
-        else: 
-            pass
+        
+            
 
         
 
     def __str__(self):
         output = '' 
         holder = self.team
-        if self.battlemode == 0:
-            for i in range(self.team.length):
-                output += str(holder.pop())
-                output += ', '
+        
+        for i in range(self.team.length):
+            output += str(holder.pop())
+            output += ', '
             
-        elif self.battlemode == 1:
-            for i in range(self.team.length):
-                output += str(holder.serve())
-                output += ', '
-        else:
-            pass
+       
         output = output[:-2]
         return output 
 
         #return 'Charmander\'s HP = 7 and level = 1, Bulbasaur\'s HP = 9 and level = 1, Squirtle\'s HP = 8 and level = 1'
-        

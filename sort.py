@@ -3,7 +3,9 @@ from queue_adt import CircularQueue
 
 
 
-def selectionSort2(team, criteria):
+
+def selectionSort(team, criteria):
+
     size = team.length
 
     def valueassign(poke):
@@ -23,7 +25,7 @@ def selectionSort2(team, criteria):
              
             # For sorting in descending order
             # for minimum element in each loop
-            if getattr(team.array[i],criteria) > getattr(team.array[idx],criteria):
+            if getattr(team.array[i],criteria) < getattr(team.array[idx],criteria):
                 idx = i
 
             elif getattr(team.array[i],criteria) == getattr(team.array[idx],criteria):
@@ -31,10 +33,10 @@ def selectionSort2(team, criteria):
                 hold_1 = valueassign(team.array[i])
                 hold_2 = valueassign(team.array[idx])
 
-                if hold_1 < hold_2:
-                    idx = i
+                if hold_1 > hold_2:
+                    (team.array[i], team.array[idx]) = (team.array[idx], team.array[i])
                 # Arranging min at the correct position
-                    (team.array[s], team.array[idx]) = (team.array[idx], team.array[s])
+                    
                 else:
                     pass
  
@@ -42,17 +44,6 @@ def selectionSort2(team, criteria):
         (team.array[s], team.array[idx]) = (team.array[idx], team.array[s])
 
 
-        
+    return team    
 
 
-team = CircularQueue(6)
-
-team.append(Bulbasaur())
-team.append(Bulbasaur())
-team.append(Squirtle())
-
-
-
-selectionSort2(team,'level')
-for i in range(team.length):
-    print(team.array[i])

@@ -75,6 +75,9 @@ class CircularQueue(Queue[T]):
         self.array[self.rear] = item
         self.length += 1
         self.rear = (self.rear + 1) % len(self.array)
+    
+    def push(self, item: T) -> None:
+        self.append(item)
 
     def serve(self) -> T:
         """ Deletes and returns the element at the queue's front.
@@ -88,6 +91,10 @@ class CircularQueue(Queue[T]):
         item = self.array[self.front] 
         self.front = (self.front+1) % len(self.array)
         return item 
+
+    def pop(self) -> T:
+        return self.serve()
+
 
     def peek(self) -> T:
         if self.is_empty():
